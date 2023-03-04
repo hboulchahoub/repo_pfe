@@ -1,6 +1,8 @@
 package ma.geo.local.mappers;
 
+import ma.geo.local.entities.Adresse;
 import ma.geo.local.entities.StudentEntity;
+import ma.geo.local.entities.StudentId;
 import ma.geo.local.models.StudentDTO;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +15,16 @@ public class StudentMapper {
 
     public StudentEntity studentDtoToEntity(StudentDTO dto) {
         StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setId(dto.getId());
+        studentEntity.setStudentId(new StudentId(dto.getLabel(),dto.getCode()));
         studentEntity.setName(dto.getName());
+        studentEntity.setAdresse(new Adresse("rue1","avenu1","ville1"));
         return studentEntity;
     }
 
     public StudentDTO studentEntityToDto(StudentEntity studentEntity) {
         StudentDTO dto = new StudentDTO();
-        dto.setId(studentEntity.getId());
+        dto.setLabel(studentEntity.getStudentId().getLabel());
+        dto.setCode(studentEntity.getStudentId().getCode());
         dto.setName(studentEntity.getName());
         return dto;
     }

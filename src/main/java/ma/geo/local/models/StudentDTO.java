@@ -1,15 +1,24 @@
 package ma.geo.local.models;
 
 public class StudentDTO {
-    private Long id;
+    private String label;
+    private String code;
     private String name;
 
-    public Long getId() {
-        return id;
+    public String getLabel() {
+        return label;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -23,7 +32,8 @@ public class StudentDTO {
     @Override
     public String toString() {
         return "StudentDTO{" +
-                "id=" + id +
+                "label=" + label +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

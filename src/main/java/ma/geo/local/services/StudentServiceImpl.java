@@ -3,17 +3,17 @@ package ma.geo.local.services;
 import ma.geo.local.mappers.StudentMapper;
 import ma.geo.local.models.StudentDTO;
 import ma.geo.local.repositories.StudentRepository;
-import ma.geo.local.repositories.StudentRepositoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("service1")
 public class StudentServiceImpl implements StudentService {
-    private final static Logger LOGGER= LoggerFactory.getLogger(StudentServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     private StudentRepository studentRepository;
     private StudentMapper studentMapper;
@@ -24,26 +24,26 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Long save(StudentDTO dto) {
-        LOGGER.debug("start method save");
-        return studentRepository.save(studentMapper.studentDtoToEntity(dto));
+    public StudentDTO save(StudentDTO dto) {
+        LOGGER.debug("start method save {} ", dto);
+        return studentMapper.studentEntityToDto(studentRepository.save(studentMapper.studentDtoToEntity(dto)));
     }
 
     @Override
-    public Long update(StudentDTO dto) {
-        LOGGER.debug("start method update");
-        return studentRepository.update(studentMapper.studentDtoToEntity(dto));
+    public StudentDTO update(StudentDTO dto) {
+        LOGGER.debug("start method update {} ", dto);
+        return studentMapper.studentEntityToDto(studentRepository.save(studentMapper.studentDtoToEntity(dto)));
     }
 
     @Override
-    public Boolean delete(Long id) {
+    public void delete(Long id) {
         LOGGER.debug("start method delete");
-        return studentRepository.delete(id);
+        studentRepository.deleteById(id);
     }
 
     @Override
     public List<StudentDTO> selectAll() {
         LOGGER.debug("start method select All");
-        return studentMapper.studentEntiesToDtos(studentRepository.selectAll());
+        return studentMapper.studentEntiesToDtos(Streamable.of(studentRepository.findAll()).toList());
     }
 }

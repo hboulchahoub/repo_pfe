@@ -5,11 +5,11 @@ import ma.geo.local.models.StudentDTO;
 import java.util.List;
 
 public interface StudentService {
-    Long save(StudentDTO s);
+    StudentDTO save(StudentDTO s);
 
-    Long update(StudentDTO s);
+    StudentDTO update(StudentDTO s);
 
-    Boolean delete(Long id);
+    void delete(Long id);
 
     List<StudentDTO> selectAll();
 }
